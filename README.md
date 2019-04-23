@@ -1,7 +1,7 @@
 # UXDM Eloquent
 
 The UXDM Eloquent package provides a UXDM source and destination for the
-Elouquent ORM, commonly used in Laravel projects.
+Eloquent ORM, commonly used in Laravel projects.
 
 ## Installation
 
