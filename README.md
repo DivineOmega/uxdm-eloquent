@@ -1,5 +1,8 @@
 # UXDM Eloquent
 
+[![Build Status](https://travis-ci.com/DivineOmega/uxdm-eloquent.svg?branch=master)](https://travis-ci.com/DivineOmega/uxdm-eloquent)
+[![Coverage Status](https://coveralls.io/repos/github/DivineOmega/uxdm-eloquent/badge.svg?branch=master)](https://coveralls.io/github/DivineOmega/uxdm-eloquent?branch=master)
+
 The UXDM Eloquent package provides a UXDM source and destination for the
 Eloquent ORM, commonly used in Laravel projects.
 
