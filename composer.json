@@ -1,0 +1,31 @@
+{
+    "name": "divineomega/uxdm-eloquent",
+    "description": "Eloquent package for the UXDM data migrator",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jordan Hall",
+            "email": "jordan@hall05.co.uk"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^7.0||^8.0",
+        "fzaninotto/faker": "^1.6",
+        "php-coveralls/php-coveralls": "^2.0"
+    },
+    "require": {
+        "dompdf/dompdf": "^0.8.3",
+        "divineomega/uxdm": "dev-feature/php-7.1-minimum"
+    },
+    "autoload": {
+        "psr-4": {
+            "DivineOmega\\uxdm\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DivineOmega\\uxdm\\TestClasses\\": "tests/Unit/includes/TestClasses/"
+        }
+    },
+    "license": "LGPL-3.0-only"
+}
