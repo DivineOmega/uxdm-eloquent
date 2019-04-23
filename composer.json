@@ -14,8 +14,9 @@
         "php-coveralls/php-coveralls": "^2.0"
     },
     "require": {
-        "dompdf/dompdf": "^0.8.3",
-        "divineomega/uxdm": "dev-feature/php-7.1-minimum"
+        "divineomega/uxdm": "dev-feature/php-7.1-minimum",
+        "illuminate/support": "^5.1",
+        "illuminate/database": "^5.1"
     },
     "autoload": {
         "psr-4": {
