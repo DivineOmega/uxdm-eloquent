@@ -1,5 +1,7 @@
 <?php
 
+namespace DivineOmega\uxdm\Objects\Tests;
+
 use DivineOmega\uxdm\Objects\Sources\EloquentSource;
 use DivineOmega\uxdm\TestClasses\Eloquent\User;
 use PHPUnit\Framework\TestCase;

@@ -1,5 +1,7 @@
 <?php
 
+namespace DivineOmega\uxdm\Objects\Tests;
+
 use DivineOmega\uxdm\Objects\DataItem;
 use DivineOmega\uxdm\Objects\DataRow;
 use DivineOmega\uxdm\Objects\Destinations\EloquentDestination;
@@ -12,7 +14,7 @@ final class EloquentDestinationTest extends TestCase
 
     private function getDestination()
     {
-        $this->pdo = new PDO('sqlite:'.__DIR__.'/Data/destination.sqlite');
+        $this->pdo = new \PDO('sqlite:'.__DIR__.'/Data/destination.sqlite');
 
         $sql = 'DROP TABLE IF EXISTS users';
         $stmt = $this->pdo->prepare($sql);
@@ -29,7 +31,7 @@ final class EloquentDestinationTest extends TestCase
 
     private function createDataRows()
     {
-        $faker = Faker\Factory::create();
+        $faker = \Faker\Factory::create();
 
         $dataRows = [];
 
@@ -46,9 +48,21 @@ final class EloquentDestinationTest extends TestCase
         return $dataRows;
     }
 
+    private function createEmptyDataRows()
+    {
+        $dataRows = [];
+
+        $dataRow = new DataRow();
+        $dataRow->addDataItem(new DataItem('name'));
+        $dataRow->addDataItem(new DataItem('value'));
+        $dataRows[] = $dataRow;
+
+        return $dataRows;
+    }
+
     private function alterDataRows(array $dataRows)
     {
-        $faker = Faker\Factory::create();
+        $faker = \Faker\Factory::create();
 
         foreach ($dataRows as $dataRow) {
             $dataItem = $dataRow->getDataItemByFieldName('value');
@@ -64,9 +78,34 @@ final class EloquentDestinationTest extends TestCase
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         return $rows;
+    }
+
+    private function getActualEmptyArray()
+    {
+        return [
+            [
+                'name' => '',
+                'value' => '',
+            ],
+        ];
+    }
+
+    private function getActualValueArray(array $dataRows)
+    {
+        $expectedArray = [];
+
+        foreach ($dataRows as $dataRow) {
+            $expectedArrayRow = [];
+            foreach ($dataRow->getDataItems() as $dataItem) {
+                $expectedArrayRow[$dataItem->fieldName] = $dataItem->value;
+            }
+            $expectedArray[] = $expectedArrayRow;
+        }
+
+        return $expectedArray;
     }
 
     private function getExpectedArray(array $dataRows)
@@ -99,6 +138,18 @@ final class EloquentDestinationTest extends TestCase
         $destination->putDataRows($dataRows);
 
         $this->assertEquals($this->getExpectedArray($dataRows), $this->getActualArray());
+
+        $dataRows = $this->createEmptyDataRows();
+
+        $destination->putDataRows($dataRows);
+
+        $this->assertEquals($this->getExpectedArray($dataRows), $this->getActualEmptyArray());
+
+        $dataRows = $this->alterDataRows($dataRows);
+
+        $destination->putDataRows($dataRows);
+
+        $this->assertEquals($this->getExpectedArray($dataRows), $this->getActualValueArray($dataRows));
 
         $destination->finishMigration();
     }
