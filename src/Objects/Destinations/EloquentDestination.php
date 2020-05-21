@@ -4,6 +4,7 @@ namespace DivineOmega\uxdm\Objects\Destinations;
 
 use DivineOmega\uxdm\Interfaces\DestinationInterface;
 use DivineOmega\uxdm\Objects\DataRow;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EloquentDestination implements DestinationInterface
 {
@@ -16,11 +17,17 @@ class EloquentDestination implements DestinationInterface
 
     private function alreadyExists(array $keyDataItems)
     {
-        $count = $this->model->where(function ($query) use ($keyDataItems) {
+        $query = $this->model->where(function ($query) use ($keyDataItems) {
             foreach ($keyDataItems as $keyDataItem) {
                 $query->where($keyDataItem->fieldName, $keyDataItem->value);
             }
-        })->count();
+        });
+
+        if (in_array(SoftDeletes::class, class_uses($this->model))) {
+            $query->withTrashed();
+        }
+
+        $count = $query->count();
 
         return $count > 0;
     }
