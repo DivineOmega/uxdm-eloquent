@@ -11,7 +11,9 @@
     "require-dev": {
         "phpunit/phpunit": "^7.0||^8.0",
         "fzaninotto/faker": "^1.6",
-        "php-coveralls/php-coveralls": "^2.0"
+        "php-coveralls/php-coveralls": "^2.0",
+        "ext-sqlite3": "*",
+        "ext-pdo_sqlite": "*"
     },
     "require": {
         "divineomega/uxdm": "^3.0.0",
