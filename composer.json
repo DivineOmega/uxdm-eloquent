@@ -16,7 +16,7 @@
         "ext-pdo_sqlite": "*"
     },
     "require": {
-        "divineomega/uxdm": "^3.0.0",
+        "divineomega/uxdm": "^3.0.0||^4.0.0",
         "illuminate/support": "^5.1||^6.0||^7.0",
         "illuminate/database": "^5.1||^6.0||^7.0"
     },
