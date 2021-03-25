@@ -18,7 +18,14 @@ class EloquentSource implements SourceInterface
         $this->model = new $eloquentModelClassName();
         $this->queryCallback = $queryCallback;
 
-        $this->fields = array_keys($this->model->first()->getAttributes());
+        $query = $this->model->query();
+
+        if (is_callable($this->queryCallback)) {
+            $queryCallback = $this->queryCallback;
+            $queryCallback($query);
+        }
+
+        $this->fields = array_keys($query->first()->getAttributes());
     }
 
     public function getDataRows(int $page = 1, array $fieldsToRetrieve = []): array
