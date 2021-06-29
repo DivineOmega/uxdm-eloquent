@@ -9,7 +9,6 @@ class SoftDeletableUser extends Model
 {
     use SoftDeletes;
 
-    public $table = 'users';
     public $primaryKey = 'id';
     public $timestamps = false;
 }

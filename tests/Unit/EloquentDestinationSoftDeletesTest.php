@@ -17,11 +17,11 @@ final class EloquentDestinationSoftDeletesTest extends TestCase
     {
         $this->pdo = new \PDO('sqlite:'.__DIR__.'/Data/destination.sqlite');
 
-        $sql = 'DROP TABLE IF EXISTS users';
+        $sql = 'DROP TABLE IF EXISTS soft_deletable_users';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
-        $sql = 'CREATE TABLE IF NOT EXISTS users (id integer primary key autoincrement, name TEXT, value INTEGER, deleted_at datetime)';
+        $sql = 'CREATE TABLE IF NOT EXISTS soft_deletable_users (id integer primary key autoincrement, name TEXT, value INTEGER, deleted_at datetime)';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
@@ -78,7 +78,7 @@ final class EloquentDestinationSoftDeletesTest extends TestCase
 
     private function getActualArray()
     {
-        $sql = 'SELECT name, value, deleted_at FROM users';
+        $sql = 'SELECT name, value, deleted_at FROM soft_deletable_users';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
